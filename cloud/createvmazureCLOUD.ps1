@@ -1,10 +1,26 @@
+function connectAzure
+{
+   
+    try {
+        Connect-AzAccount -ErrorAction Stop
+        write-host "connection réussi"
+    }
+    catch{
+        write-host "connection échoué"
+        Write-host $($_.exception.message)
+    }
+}
+connectAzure
+
+
 #chemin cloud perso azure 
+
 $vds = Import-Csv -Path "/home/robin/computes.csv" -Delimiter ";"
 foreach ($vd in $vds){
 $User = "administrateur"
 $File = "C:\Users\MONTIGR1\Desktop\cloud\Password.txt"
 $MyCredential = New-Object -TypeName System.Management.Automation.PSCredential `
- -ArgumentList $User, (Get-Content $File | ConvertTo-SecureString)
+ -ArgumentList $User, (Get-Content $File | Convertfrom-SecureString)
 #paramètres machine
 #$vmAdminUsername = "administrateur"
 #$$vmAdminPassword = Get-Content "C:\Users\MONTIGR1\Desktop\cloud\Password.txt" | ConvertTo-SecureString
